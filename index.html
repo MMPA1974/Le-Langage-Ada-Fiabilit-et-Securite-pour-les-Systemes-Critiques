@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le Langage Ada : Fiabilité et Sécurité</title>
+    <!-- Utilisation de Tailwind CSS pour un style moderne et réactif -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+        /* Style pour les cartes interactives */
+        .interactive-card {
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .interactive-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+        }
+        /* Style pour le modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 50;
+        }
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90%;
+            overflow-y: auto;
+            position: relative;
+            border: 2px solid;
+            transition: all 0.3s ease-in-out;
+        }
+        /* Styles de couleurs vives pour les modals */
+        .modal-content.color-pink {
+            background-color: #fff0f5;
+            border-color: #ff69b4;
+        }
+        .modal-content.color-yellow {
+            background-color: #fff8e1;
+            border-color: #ffc107;
+        }
+        .modal-content.color-green {
+            background-color: #e8f5e9;
+            border-color: #4caf50;
+        }
+        .modal-content.color-purple {
+            background-color: #f3e5f5;
+            border-color: #9c27b0;
+        }
+        .modal-content.color-cyan {
+            background-color: #e0f7fa;
+            border-color: #00bcd4;
+        }
+        .modal-content.color-orange {
+            background-color: #fff3e0;
+            border-color: #ff9800;
+        }
+        .modal-content.color-red {
+            background-color: #ffebee;
+            border-color: #f44336;
+        }
+        .modal-content.color-blue {
+            background-color: #e3f2fd;
+            border-color: #2196f3;
+        }
+        .modal-content.color-teal {
+            background-color: #e0f2f1;
+            border-color: #00897b;
+        }
+        
+        .modal-title-dynamic {
+            color: var(--dynamic-color);
+        }
+        .modal-button-dynamic {
+            background-color: var(--dynamic-color);
+        }
+        .modal-button-dynamic:hover {
+            filter: brightness(0.9);
+        }
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #4CAF50;
+            color: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: opacity 0.3s, transform 0.3s;
+            opacity: 0;
+            transform: scale(0.8);
+        }
+        .back-to-top.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+    <!-- Conteneur principal avec un maximum de largeur et centré -->
+    <div class="container mx-auto p-4 md:p-8">
+        <a id="top-of-page"></a>
+        <!-- En-tête principal -->
+        <header class="text-center mb-12 p-8 rounded-xl shadow-lg bg-gradient-to-r from-teal-600 to-cyan-600 text-white">
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-2">Le Langage Ada</h1>
+            <p class="text-xl md:text-2xl font-semibold">Fiabilité et Sécurité pour les Systèmes Critiques</p>
+        </header>
+
+        <!-- Introduction -->
+        <section class="mb-12 text-center">
+            <h2 class="text-2xl md:text-3xl font-bold mb-4">Un héritage de robustesse</h2>
+            <p class="text-lg md:text-xl max-w-3xl mx-auto">
+                Nommé d'après Ada Lovelace, le langage Ada a été conçu par le département de la Défense des États-Unis dans les années 1970 et 1980 pour le développement de logiciels fiables et sûrs pour les systèmes critiques.
+            </p>
+        </section>
+
+        <!-- Section forces d'Ada -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+            <!-- La robustesse par conception -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold mb-2">La robustesse par conception</h3>
+                <div class="flex items-center space-x-4">
+                    <span class="text-6xl font-black text-teal-600">🛡️</span>
+                    <p class="text-lg">
+                        Ada met l'accent sur la fiabilité, la lisibilité et la maintenance du code, avec des mécanismes intégrés pour la détection précoce des erreurs, ce qui le rend idéal pour les applications où la sécurité est primordiale.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Conçu pour le temps réel -->
+            <div class="bg-white p-6 rounded-xl shadow-lg">
+                <h3 class="text-xl font-bold mb-2">Conçu pour le temps réel</h3>
+                <p class="text-lg">
+                    Avec des fonctionnalités de concurrence et de programmation orientée tâches (tasking), Ada est un langage de choix pour les systèmes embarqués et les applications en temps réel.
+                </p>
+            </div>
+        </section>
+
+        <!-- Les avantages clés d'Ada -->
+        <section class="mb-12">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Les Avantages Clés d'Ada</h2>
+            <p class="text-center text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                Ada se distingue par des fonctionnalités de sécurité et de robustesse intégrées au langage.
+            </p>
+            <!-- Grille des avantages interactifs -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Typage Fort -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                    data-modal-title="Typage Fort"
+                    data-modal-content="Le typage fort d'Ada empêche de nombreuses erreurs logicielles en détectant les incompatibilités de types à la compilation, bien avant l'exécution du programme.">
+                    <span class="text-4xl mb-4">✍️</span>
+                    <h4 class="text-lg font-bold mb-2">Typage Fort</h4>
+                    <p>Empêche les erreurs en s'assurant que les données sont utilisées correctement.</p>
+                </div>
+                <!-- Gestion des Exceptions -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                    data-modal-title="Gestion des Exceptions"
+                    data-modal-content="Ada dispose de mécanismes de gestion des exceptions sophistiqués pour gérer les erreurs et les conditions anormales de manière propre et contrôlée.">
+                    <span class="text-4xl mb-4">🚨</span>
+                    <h4 class="text-lg font-bold mb-2">Gestion des Exceptions</h4>
+                    <p>Permet de traiter les erreurs de manière robuste et prévisible.</p>
+                </div>
+                <!-- Concurrence et Tasking -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                    data-modal-title="Concurrence et Tasking"
+                    data-modal-content="Le modèle de 'tasking' d'Ada permet de diviser un programme en plusieurs tâches concurrentes, ce qui est essentiel pour les applications temps réel.">
+                    <span class="text-4xl mb-4">⏳</span>
+                    <h4 class="text-lg font-bold mb-2">Concurrence et Tasking</h4>
+                    <p>Idéal pour les applications qui doivent gérer plusieurs opérations en même temps.</p>
+                </div>
+                <!-- Lisibilité et Maintenance -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                    data-modal-title="Lisibilité et Maintenance"
+                    data-modal-content="La syntaxe d'Ada a été conçue pour être aussi claire et lisible que possible, ce qui facilite la maintenance et la vérification du code, même des années après son écriture.">
+                    <span class="text-4xl mb-4">📖</span>
+                    <h4 class="text-lg font-bold mb-2">Lisibilité et Maintenance</h4>
+                    <p>Un code plus facile à lire et à maintenir sur le long terme.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Les Domaines d'application -->
+        <section class="mb-12 bg-gray-200 p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Les Domaines d'application d'Ada</h2>
+            <p class="text-center text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                Ada est le langage de choix dans les industries où la fiabilité est une question de vie ou de mort.
+            </p>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Aéronautique -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                     data-modal-title="Aéronautique"
+                     data-modal-content="<p><strong>Avions, contrôle de vol.</strong> Le logiciel des systèmes de contrôle de vol des avions civils et militaires (comme l'Airbus A380) est souvent écrit en Ada en raison de ses garanties de sécurité et de fiabilité.</p><p class='mt-4'><strong>✅ Avantages :</strong> Sécurité, fiabilité, temps réel. <br> <strong>❌ Inconvénients :</strong> Apprentissage complexe, moins populaire.</p>">
+                    <span class="text-4xl mb-4">✈️</span>
+                    <h4 class="text-lg font-bold mb-2">Aéronautique</h4>
+                    <p class="text-sm text-gray-500">Contrôle de vol et systèmes embarqués.</p>
+                </div>
+
+                <!-- Systèmes Militaires -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                     data-modal-title="Systèmes Militaires et de Défense"
+                     data-modal-content="<p><strong>Radars, missiles, systèmes de commande.</strong> Le langage a été initialement conçu pour ces applications, il est donc utilisé pour de nombreux systèmes de défense en raison de sa robustesse et de son support pour le parallélisme.</p><p class='mt-4'><strong>✅ Avantages :</strong> Sécurité, gestion de la concurrence. <br> <strong>❌ Inconvénients :</strong> Code complexe, communauté de niche.</p>">
+                    <span class="text-4xl mb-4">🪖</span>
+                    <h4 class="text-lg font-bold mb-2">Systèmes Militaires</h4>
+                    <p class="text-sm text-gray-500">Radars et systèmes de commande. </p>
+                </div>
+
+                <!-- Secteur ferroviaire -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                     data-modal-title="Secteur ferroviaire"
+                     data-modal-content="<p><strong>Contrôle des trains, signalisation.</strong> Le logiciel de sécurité des trains, qui doit fonctionner sans erreur, est un domaine d'application parfait pour Ada.</p><p class='mt-4'><strong>✅ Avantages :</strong> Robustesse, fiabilité. <br> <strong>❌ Inconvénients :</strong> Peu de bibliothèques, long temps de développement.</p>">
+                    <span class="text-4xl mb-4">🚄</span>
+                    <h4 class="text-lg font-bold mb-2">Secteur ferroviaire</h4>
+                    <p class="text-sm text-gray-500">Systèmes de signalisation et de contrôle.</p>
+                </div>
+
+                <!-- Espace -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                     data-modal-title="Espace"
+                     data-modal-content="<p><strong>Satellites, sondes spatiales.</strong> Le logiciel embarqué dans les satellites et les sondes spatiales doit être exempt d'erreurs pour assurer la mission. Le strict typage d'Ada aide à garantir cette fiabilité.</p><p class='mt-4'><strong>✅ Avantages :</strong> Fiabilité, détection précoce d'erreurs. <br> <strong>❌ Inconvénients :</strong> Peu de ressources, peu de développeurs.</p>">
+                    <span class="text-4xl mb-4">🛰️</span>
+                    <h4 class="text-lg font-bold mb-2">Secteur spatial</h4>
+                    <p class="text-sm text-gray-500">Logiciels de satellites et de sondes.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Nouveautés -->
+        <section class="mb-12 bg-gray-200 p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Nouveautés</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Exemples de Code -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Exemples de code</h3>
+                    <p class="text-lg mb-4">
+                        Cliquez sur les cartes pour voir des exemples de code simples qui illustrent les concepts fondamentaux d'Ada.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="interactive-card bg-gray-50 p-4 rounded-xl shadow-md"
+                            data-modal-title="Hello, World! en Ada"
+                            data-modal-content="<p>Voici un exemple de programme simple en Ada :</p><pre class='bg-gray-800 text-white p-4 rounded-md mt-4 text-sm'><code>with Ada.Text_IO; use Ada.Text_IO;&#x0A;&#x0A;procedure Hello_World is&#x0A;begin&#x0A;  Put_Line ('Hello, World!');&#x0A;end Hello_World;</code></pre>">
+                            <h4 class="font-bold">Hello, World!</h4>
+                            <p class="text-sm text-gray-500">La syntaxe de base d'un programme.</p>
+                        </div>
+                        <div class="interactive-card bg-gray-50 p-4 rounded-xl shadow-md"
+                            data-modal-title="Tâches Concurrentes (Tasking)"
+                            data-modal-content="<p>Un exemple de deux tâches s'exécutant en parallèle.</p><pre class='bg-gray-800 text-white p-4 rounded-md mt-4 text-sm'><code>procedure Task_Example is&#x0A;  task T1;&#x0A;  task T2;&#x0A;&#x0A;  task body T1 is&#x0A;  begin&#x0A;    -- Code de la tâche 1&#x0A;  end T1;&#x0A;&#x0A;  task body T2 is&#x0A;  begin&#x0A;    -- Code de la tâche 2&#x0A;  end T2;&#x0A;begin&#x0A;  -- Le programme attend la fin des deux tâches&#x0A;end Task_Example;</code></pre>">
+                            <h4 class="font-bold">Tâches (Tasking)</h4>
+                            <p class="text-sm text-gray-500">Un aperçu de la concurrence en Ada.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ada face à ses concurrents -->
+                <div class="bg-white p-6 rounded-xl shadow-lg">
+                    <h3 class="text-xl font-bold mb-2">Ada face à ses concurrents</h3>
+                    <p class="text-lg mb-4">
+                        Découvrez comment Ada se positionne par rapport à d'autres langages utilisés dans les systèmes critiques.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div class="interactive-card bg-gray-50 p-4 rounded-xl shadow-md"
+                            data-modal-title="Ada vs. C/C++"
+                            data-modal-content="<p>Ada a été conçu pour éviter les faiblesses du C/C++ comme les débordements de tampon (buffer overflows) et les pointeurs sauvages, en intégrant la gestion de la mémoire et les vérifications de types au niveau du langage.</p>">
+                            <h4 class="font-bold">C/C++</h4>
+                            <p class="text-sm text-gray-500">Sécurité et fiabilité vs. flexibilité.</p>
+                        </div>
+                        <div class="interactive-card bg-gray-50 p-4 rounded-xl shadow-md"
+                            data-modal-title="Ada vs. Rust"
+                            data-modal-content="<p>Rust, un langage plus récent, partage des objectifs similaires à Ada concernant la sécurité (pas de 'data race') mais utilise des concepts différents comme le 'ownership' et le 'borrowing'. Ada se concentre davantage sur la lisibilité et les contrats formels.</p>">
+                            <h4 class="font-bold">Rust</h4>
+                            <p class="text-sm text-gray-500">Sécurité et modernité.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contexte Historique et Évolution -->
+        <section class="mb-12 bg-gray-200 p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Contexte Historique et Évolution d'Ada</h2>
+            <p class="text-center text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                Ada a connu plusieurs évolutions majeures pour rester pertinent au fil des décennies.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg text-center"
+                    data-modal-title="Ada 83"
+                    data-modal-content="<p>La première version du langage, standardisée en 1983. Elle a jeté les bases de la robustesse avec le typage fort et la gestion des exceptions.</p>">
+                    <span class="text-4xl font-bold text-teal-600">1983</span>
+                    <h4 class="text-lg font-bold mt-2">Ada 83</h4>
+                </div>
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg text-center"
+                    data-modal-title="Ada 95"
+                    data-modal-content="<p>Une mise à jour majeure standardisée en 1995. Elle a introduit la programmation orientée objet (POO) et des fonctionnalités de concurrence plus avancées.</p>">
+                    <span class="text-4xl font-bold text-cyan-600">1995</span>
+                    <h4 class="text-lg font-bold mt-2">Ada 95</h4>
+                </div>
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg text-center"
+                    data-modal-title="Ada 2005 et 2012"
+                    data-modal-content="<p>Ces versions ont continué d'affiner le langage en ajoutant des fonctionnalités modernes, comme l'amélioration de la gestion des 'contracts' (postconditions, invariants) pour renforcer la sécurité du code.</p>">
+                    <span class="text-4xl font-bold text-teal-600">2005-2012</span>
+                    <h4 class="text-lg font-bold mt-2">Ada 2005 & 2012</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Section Glossaire -->
+        <section class="mb-12 bg-gray-200 p-8 rounded-xl shadow-lg">
+            <h2 class="text-2xl md:text-3xl font-bold text-center mb-6">Glossaire des Acronymes en Ada</h2>
+            <p class="text-center text-lg md:text-xl mb-8 max-w-3xl mx-auto">
+                Cliquez sur un acronyme pour en savoir plus sur son rôle dans l'écosystème d'Ada.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                <!-- Acronymes généraux et liés à l'environnement -->
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="Ada" data-modal-content="Le langage de programmation lui-même, nommé en l'honneur d'Ada Lovelace, une pionnière de l'informatique.">
+                    <h4 class="font-bold text-lg">ADA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="GNAT" data-modal-content="**GNU Ada Toolset.** L'ensemble d'outils de compilation et de développement standard pour le langage Ada, inclus dans la collection de compilateurs GNU (GCC). GNAT est le compilateur le plus utilisé pour Ada.">
+                    <h4 class="font-bold text-lg">GNAT</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="SPARK" data-modal-content="Un sous-ensemble formellement défini du langage Ada conçu pour les systèmes à haute intégrité. Il permet d'utiliser des outils pour prouver mathématiquement l'absence de certains types d'erreurs logicielles, ce qui est crucial pour les applications de sécurité critique.">
+                    <h4 class="font-bold text-lg">SPARK</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="ASIS" data-modal-content="**Ada Semantic Interface Specification.** Une interface standardisée permettant d'accéder aux informations sémantiques et syntaxiques du code Ada, utilisée par les outils de développement.">
+                    <h4 class="font-bold text-lg">ASIS</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="RTOS" data-modal-content="**Real-Time Operating System.** Un système d'exploitation conçu pour les applications temps réel. Ada est très bien adapté pour écrire des applications qui tournent sur un RTOS, grâce à ses fonctionnalités de 'tasking'.">
+                    <h4 class="font-bold text-lg">RTOS</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="POSIX" data-modal-content="**Portable Operating System Interface.** Ada, comme le C, est souvent utilisé pour développer des logiciels pour les systèmes d'exploitation compatibles avec les standards POSIX, qui assurent une certaine portabilité.">
+                    <h4 class="font-bold text-lg">POSIX</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="Ravenscar" data-modal-content="Un profil de 'tasking' d'Ada, qui est un sous-ensemble du langage conçu pour les systèmes temps réel à haute intégrité, simplifiant la vérification et la certification.">
+                    <h4 class="font-bold text-lg">Ravenscar</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="DoD" data-modal-content="**Department of Defense.** Le département de la Défense des États-Unis, à l'origine du développement du langage Ada.">
+                    <h4 class="font-bold text-lg">DoD</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="ESA" data-modal-content="**European Space Agency.** L'agence spatiale européenne utilise Ada et SPARK pour les logiciels critiques embarqués sur ses satellites et sondes.">
+                    <h4 class="font-bold text-lg">ESA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="NASA" data-modal-content="**National Aeronautics and Space Administration.** L'agence spatiale américaine, qui utilise Ada dans certaines de ses applications pour la fiabilité requise.">
+                    <h4 class="font-bold text-lg">NASA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="FAA" data-modal-content="**Federal Aviation Administration.** L'autorité de l'aviation civile aux États-Unis, qui régule et certifie l'utilisation de logiciels dans les aéronefs, souvent développés avec Ada.">
+                    <h4 class="font-bold text-lg">FAA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="EASA" data-modal-content="**European Union Aviation Safety Agency.** L'agence européenne de la sécurité aérienne, homologue de la FAA.">
+                    <h4 class="font-bold text-lg">EASA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="IEC 61508" data-modal-content="**International Electrotechnical Commission.** Une norme internationale pour la sécurité fonctionnelle des systèmes électriques, électroniques et électroniques programmables. Ada est bien adapté pour cette certification.">
+                    <h4 class="font-bold text-lg">IEC 61508</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="ISO 26262" data-modal-content="Une norme de sécurité fonctionnelle pour les systèmes électroniques dans les véhicules de route. Ada est utilisé pour développer des logiciels pour les systèmes certifiés selon cette norme.">
+                    <h4 class="font-bold text-lg">ISO 26262</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="DO-178C" data-modal-content="**Software Considerations in Airborne Systems and Equipment Certification.** C'est la norme internationale pour le développement de logiciels aéronautiques. Le langage Ada est l'un des rares langages considérés comme adaptés pour atteindre les niveaux de certification les plus élevés de cette norme.">
+                    <h4 class="font-bold text-lg">DO-178C</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="ED-12B" data-modal-content="**Eurocae ED-12B.** La version européenne de la norme DO-178C, qui est utilisée pour la certification des logiciels dans le secteur de l'aviation.">
+                    <h4 class="font-bold text-lg">ED-12B</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="MISRA C" data-modal-content="**Motor Industry Software Reliability Association.** Un ensemble de lignes directrices pour le développement de logiciels dans le secteur automobile, souvent mises en œuvre avec des langages comme le C et l'Ada pour assurer la sécurité et la fiabilité des systèmes de contrôle des véhicules.">
+                    <h4 class="font-bold text-lg">MISRA C</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="ARINC 653" data-modal-content="Un standard d'interface pour les systèmes d'exploitation en temps réel pour l'avionique. Ada est souvent utilisé pour développer des applications compatibles avec ce standard.">
+                    <h4 class="font-bold text-lg">ARINC 653</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="V&V" data-modal-content="**Verification and Validation.** Un processus d'assurance qualité critique dans les systèmes où la sécurité est primordiale, pour lequel Ada est particulièrement bien adapté.">
+                    <h4 class="font-bold text-lg">V&V</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="QA" data-modal-content="**Quality Assurance.** L'ensemble des activités visant à garantir que les produits logiciels répondent aux exigences de qualité, une priorité dans l'écosystème Ada.">
+                    <h4 class="font-bold text-lg">QA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="FMEA" data-modal-content="**Failure Mode and Effects Analysis.** Une méthode d'analyse de la fiabilité pour identifier les modes de défaillance potentiels, souvent utilisée dans les domaines d'application d'Ada.">
+                    <h4 class="font-bold text-lg">FMEA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="FMECA" data-modal-content="**Failure Mode, Effects and Criticality Analysis.** Une extension de l'FMEA qui inclut une analyse de la criticité des défaillances.">
+                    <h4 class="font-bold text-lg">FMECA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="HAZOP" data-modal-content="**Hazard and Operability Study.** Une méthode structurée d'identification des dangers et des problèmes de fonctionnement, pertinente pour les systèmes développés en Ada.">
+                    <h4 class="font-bold text-lg">HAZOP</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="RTCA" data-modal-content="**Radio Technical Commission for Aeronautics.** Une organisation américaine qui, avec EUROCAE, développe les normes comme DO-178C.">
+                    <h4 class="font-bold text-lg">RTCA</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="T-OS" data-modal-content="**Trusted Operating System.** Un système d'exploitation conçu pour être hautement fiable et sécurisé, un environnement idéal pour les applications Ada.">
+                    <h4 class="font-bold text-lg">T-OS</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="ALR" data-modal-content="**Ada Language Reference.** La spécification formelle du langage Ada.">
+                    <h4 class="font-bold text-lg">ALR</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="MIL-STD-1750A" data-modal-content="Un standard de processeur utilisé par l'armée américaine. Ada a été le langage privilégié pour programmer les systèmes embarqués utilisant ce standard.">
+                    <h4 class="font-bold text-lg">MIL-STD-1750A</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="OOP" data-modal-content="**Object-Oriented Programming.** La programmation orientée objet, un paradigme pris en charge par Ada à travers des 'packages' et des types hiérarchisés.">
+                    <h4 class="font-bold text-lg">OOP</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="SDK" data-modal-content="**Software Development Kit.** Un ensemble d'outils et de bibliothèques pour la création d'applications, notamment en Ada.">
+                    <h4 class="font-bold text-lg">SDK</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="UML" data-modal-content="**Unified Modeling Language.** Un langage de modélisation visuel pour la conception de systèmes logiciels. Il est souvent utilisé pour concevoir des applications complexes avant de les implémenter en Ada.">
+                    <h4 class="font-bold text-lg">UML</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="VxWorks" data-modal-content="Un système d'exploitation temps réel très utilisé dans les domaines d'application d'Ada (aérospatial, militaire), pour lequel Ada est un langage de développement privilégié.">
+                    <h4 class="font-bold text-lg">VxWorks</h4>
+                </div>
+                <div class="bg-white p-4 rounded-xl shadow-md interactive-card" data-modal-title="INTEGRITY" data-modal-content="Un autre système d'exploitation temps réel, conçu pour les applications critiques, souvent associé au développement de logiciels en Ada.">
+                    <h4 class="font-bold text-lg">INTEGRITY</h4>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pied de page -->
+        <footer class="text-center text-gray-500 mt-12 p-4 border-t border-gray-300">
+            <p class="text-sm">Infographie conçue pour explorer les fondamentaux et l'impact d'Ada.</p>
+            <p class="text-xs mt-2">Signé par <span class="font-bold text-teal-600">Mathilde Martine PAISLEY l'énervante 🤭</span></p>
+        </footer>
+
+    </div>
+
+    <!-- Modal pour afficher les informations détaillées -->
+    <div id="info-modal" class="modal-overlay hidden">
+        <div class="modal-content text-center">
+            <h3 id="modal-title" class="text-2xl font-bold mb-4"></h3>
+            <div id="modal-content" class="text-base text-gray-700"></div>
+            <button id="close-modal" class="mt-6 px-4 py-2 text-white rounded-md shadow-md transition">Fermer</button>
+        </div>
+    </div>
+    
+    <!-- Bouton pour remonter en haut de page -->
+    <a href="#top-of-page" id="back-to-top" class="back-to-top">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+        </svg>
+    </a>
+
+    <!-- Script pour la gestion de l'interactivité -->
+    <script>
+        // Attend que le contenu du DOM soit entièrement chargé avant d'exécuter le script
+        document.addEventListener('DOMContentLoaded', () => {
+            const modal = document.getElementById('info-modal');
+            const modalContent = modal.querySelector('.modal-content');
+            const modalTitle = document.getElementById('modal-title');
+            const modalTextContent = document.getElementById('modal-content');
+            const closeModalBtn = document.getElementById('close-modal');
+            const interactiveCards = document.querySelectorAll('.interactive-card');
+            const modalOverlay = document.querySelector('.modal-overlay');
+            const backToTopBtn = document.getElementById('back-to-top');
+
+            // Mapping des couleurs pour les classes Tailwind
+            const colorMap = {
+                'pink': '#ff69b4',
+                'yellow': '#ffc107',
+                'green': '#4caf50',
+                'purple': '#9c27b0',
+                'cyan': '#00bcd4',
+                'orange': '#ff9800',
+                'red': '#f44336',
+                'blue': '#2196f3',
+                'teal': '#00897b'
+            };
+            const colors = Object.keys(colorMap);
+
+            // Fonction pour ouvrir le modal
+            const openModal = (title, content) => {
+                modalTitle.textContent = title;
+                modalTextContent.innerHTML = content;
+                
+                // Sélectionne une couleur aléatoire
+                const randomColorName = colors[Math.floor(Math.random() * colors.length)];
+                
+                // Réinitialise toutes les classes de couleur et ajoute la nouvelle
+                modalContent.classList.remove(...colors.map(c => `color-${c}`));
+                modalContent.classList.add(`color-${randomColorName}`);
+
+                // Met à jour les couleurs du titre et du bouton de manière dynamique
+                const colorValue = colorMap[randomColorName];
+                modalTitle.style.color = colorValue;
+                closeModalBtn.style.backgroundColor = colorValue;
+                
+                modal.classList.remove('hidden');
+            };
+
+            // Fonction pour fermer le modal
+            const closeModal = () => {
+                modal.classList.add('hidden');
+            };
+
+            // Écouteur d'événements pour toutes les cartes interactives
+            interactiveCards.forEach(card => {
+                card.addEventListener('click', () => {
+                    const title = card.dataset.modalTitle;
+                    const content = card.dataset.modalContent;
+                    openModal(title, content);
+                });
+            });
+
+            // Écouteur d'événements pour le bouton de fermeture
+            closeModalBtn.addEventListener('click', closeModal);
+
+            // Écouteur d'événements pour fermer le modal en cliquant sur l'arrière-plan
+            modalOverlay.addEventListener('click', (e) => {
+                if (e.target === modalOverlay) {
+                    closeModal();
+                }
+            });
+
+            // Gère la fermeture avec la touche Échap
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && !modal.classList.contains('hidden')) {
+                    closeModal();
+                }
+            });
+            
+            // Logique pour le bouton "Retour en haut"
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 300) {
+                    backToTopBtn.classList.add('show');
+                } else {
+                    backToTopBtn.classList.remove('show');
+                }
+            });
+
+            backToTopBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
