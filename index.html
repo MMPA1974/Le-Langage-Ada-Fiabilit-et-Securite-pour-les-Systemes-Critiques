@@ -110,6 +110,7 @@
             transition: opacity 0.3s, transform 0.3s;
             opacity: 0;
             transform: scale(0.8);
+            z-index: 40;
         }
         .back-to-top.show {
             opacity: 1;
@@ -210,7 +211,7 @@
                 <!-- Aéronautique -->
                 <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
                      data-modal-title="Aéronautique"
-                     data-modal-content="<p><strong>Avions, contrôle de vol.</strong> Le logiciel des systèmes de contrôle de vol des avions civils et militaires (comme l'Airbus A380) est souvent écrit en Ada en raison de ses garanties de sécurité et de fiabilité.</p><p class='mt-4'><strong>✅ Avantages :</strong> Sécurité, fiabilité, temps réel. <br> <strong>❌ Inconvénients :</strong> Apprentissage complexe, moins populaire.</p>">
+                     data-modal-content="<p><strong>Avions, contrôle de vol.</strong> Le logiciel des systèmes de contrôle de vol des avions civils et militaires (comme l'Airbus A380 et le Boeing 777) est souvent écrit en Ada en raison de ses garanties de sécurité et de fiabilité. C'est le langage de prédilection pour le développement certifié selon la norme DO-178C.</p><p class='mt-4'><strong>✅ Avantages :</strong> Sécurité, fiabilité, temps réel. <br> <strong>❌ Inconvénients :</strong> Apprentissage complexe, moins populaire.</p>">
                     <span class="text-4xl mb-4">✈️</span>
                     <h4 class="text-lg font-bold mb-2">Aéronautique</h4>
                     <p class="text-sm text-gray-500">Contrôle de vol et systèmes embarqués.</p>
@@ -219,7 +220,7 @@
                 <!-- Systèmes Militaires -->
                 <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
                      data-modal-title="Systèmes Militaires et de Défense"
-                     data-modal-content="<p><strong>Radars, missiles, systèmes de commande.</strong> Le langage a été initialement conçu pour ces applications, il est donc utilisé pour de nombreux systèmes de défense en raison de sa robustesse et de son support pour le parallélisme.</p><p class='mt-4'><strong>✅ Avantages :</strong> Sécurité, gestion de la concurrence. <br> <strong>❌ Inconvénients :</strong> Code complexe, communauté de niche.</p>">
+                     data-modal-content="<p><strong>Radars, missiles, systèmes de commande.</strong> Le langage a été initialement conçu pour ces applications, il est donc utilisé pour de nombreux systèmes de défense en raison de sa robustesse et de son support pour le parallélisme. On le retrouve par exemple dans les systèmes de commandement et de contrôle.</p><p class='mt-4'><strong>✅ Avantages :</strong> Sécurité, gestion de la concurrence. <br> <strong>❌ Inconvénients :</strong> Code complexe, communauté de niche.</p>">
                     <span class="text-4xl mb-4">🪖</span>
                     <h4 class="text-lg font-bold mb-2">Systèmes Militaires</h4>
                     <p class="text-sm text-gray-500">Radars et systèmes de commande. </p>
@@ -228,7 +229,7 @@
                 <!-- Secteur ferroviaire -->
                 <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
                      data-modal-title="Secteur ferroviaire"
-                     data-modal-content="<p><strong>Contrôle des trains, signalisation.</strong> Le logiciel de sécurité des trains, qui doit fonctionner sans erreur, est un domaine d'application parfait pour Ada.</p><p class='mt-4'><strong>✅ Avantages :</strong> Robustesse, fiabilité. <br> <strong>❌ Inconvénients :</strong> Peu de bibliothèques, long temps de développement.</p>">
+                     data-modal-content="<p><strong>Contrôle des trains, signalisation.</strong> Le logiciel de sécurité des trains (comme le TGV français), qui doit fonctionner sans erreur, est un domaine d'application parfait pour Ada, en particulier pour les systèmes certifiés selon la norme ISO 26262.</p><p class='mt-4'><strong>✅ Avantages :</strong> Robustesse, fiabilité. <br> <strong>❌ Inconvénients :</strong> Peu de bibliothèques, long temps de développement.</p>">
                     <span class="text-4xl mb-4">🚄</span>
                     <h4 class="text-lg font-bold mb-2">Secteur ferroviaire</h4>
                     <p class="text-sm text-gray-500">Systèmes de signalisation et de contrôle.</p>
@@ -237,10 +238,28 @@
                 <!-- Espace -->
                 <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
                      data-modal-title="Espace"
-                     data-modal-content="<p><strong>Satellites, sondes spatiales.</strong> Le logiciel embarqué dans les satellites et les sondes spatiales doit être exempt d'erreurs pour assurer la mission. Le strict typage d'Ada aide à garantir cette fiabilité.</p><p class='mt-4'><strong>✅ Avantages :</strong> Fiabilité, détection précoce d'erreurs. <br> <strong>❌ Inconvénients :</strong> Peu de ressources, peu de développeurs.</p>">
+                     data-modal-content="<p><strong>Satellites, sondes spatiales.</strong> Le logiciel embarqué dans les satellites et les sondes spatiales, comme ceux de l'Agence Spatiale Européenne (ESA), doit être exempt d'erreurs pour assurer la mission. Le strict typage d'Ada aide à garantir cette fiabilité.</p><p class='mt-4'><strong>✅ Avantages :</strong> Fiabilité, détection précoce d'erreurs. <br> <strong>❌ Inconvénients :</strong> Peu de ressources, peu de développeurs.</p>">
                     <span class="text-4xl mb-4">🛰️</span>
                     <h4 class="text-lg font-bold mb-2">Secteur spatial</h4>
                     <p class="text-sm text-gray-500">Logiciels de satellites et de sondes.</p>
+                </div>
+
+                <!-- Santé -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                    data-modal-title="Santé"
+                    data-modal-content="<p><strong>Dispositifs médicaux, systèmes de gestion hospitalière.</strong> La fiabilité et l'absence de bugs sont cruciales dans ce domaine. Ada est utilisé pour les dispositifs médicaux implantables ou les équipements de diagnostic où une défaillance peut avoir des conséquences graves.</p><p class='mt-4'><strong>✅ Avantages :</strong> Sécurité fonctionnelle, fiabilité. <br> <strong>❌ Inconvénients :</strong> Coût de développement élevé, expertise requise.</p>">
+                    <span class="text-4xl mb-4">🏥</span>
+                    <h4 class="text-lg font-bold mb-2">Santé</h4>
+                    <p class="text-sm text-gray-500">Dispositifs médicaux critiques.</p>
+                </div>
+
+                <!-- Automobile -->
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg flex flex-col items-center text-center"
+                    data-modal-title="Automobile"
+                    data-modal-content="<p><strong>Systèmes de sécurité, moteurs, contrôle de freinage.</strong> Dans l'industrie automobile, l'utilisation d'Ada est en forte croissance pour le développement de logiciels de sécurité, en particulier pour les systèmes certifiés selon la norme ISO 26262.</p><p class='mt-4'><strong>✅ Avantages :</strong> Fiabilité, certifications de sécurité. <br> <strong>❌ Inconvénients :</strong> Moins de soutien de l'industrie, courbe d'apprentissage abrupte.</p>">
+                    <span class="text-4xl mb-4">🚗</span>
+                    <h4 class="text-lg font-bold mb-2">Automobile</h4>
+                    <p class="text-sm text-gray-500">Systèmes de contrôle de sécurité.</p>
                 </div>
             </div>
         </section>
@@ -319,6 +338,12 @@
                     data-modal-content="<p>Ces versions ont continué d'affiner le langage en ajoutant des fonctionnalités modernes, comme l'amélioration de la gestion des 'contracts' (postconditions, invariants) pour renforcer la sécurité du code.</p>">
                     <span class="text-4xl font-bold text-teal-600">2005-2012</span>
                     <h4 class="text-lg font-bold mt-2">Ada 2005 & 2012</h4>
+                </div>
+                <div class="interactive-card bg-white p-6 rounded-xl shadow-lg text-center"
+                    data-modal-title="Ada 2022"
+                    data-modal-content="<p>La dernière mise à jour majeure, standardisée en 2022. Elle apporte des améliorations pour les architectures multi-cœurs, des expressions conditionnelles, et renforce la programmation par contrat (pré- et post-conditions) pour une sécurité encore plus grande.</p>">
+                    <span class="text-4xl font-bold text-cyan-600">2022</span>
+                    <h4 class="text-lg font-bold mt-2">Ada 2022</h4>
                 </div>
             </div>
         </section>
